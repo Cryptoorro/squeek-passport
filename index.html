@@ -44,6 +44,16 @@ button{padding:13px 22px;border:0;border-radius:10px;background:var(--btn);color
 .mrz{font:400 clamp(9px,2.6vw,13px)/1.5 "IBM Plex Mono",monospace;color:#8c8a7c;letter-spacing:.04em;overflow:hidden;white-space:nowrap;border-top:1px solid #3a3a46;padding-top:12px}
 .row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center}
 .row a{color:var(--fg);font-weight:600}
+.gen{display:flex;gap:10px;flex-wrap:wrap;flex-basis:100%}
+.gen input{flex:1 1 140px;font-size:13px}
+.cap{color:#9a9ab0;font-size:13px;margin:-6px 0 12px}
+.cap+.stats{margin-top:10px}
+details{flex-basis:100%}
+summary{cursor:pointer;color:var(--muted);font-size:14px}
+.hl{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px 14px;margin-top:10px}
+.hl label{font-size:14px;display:flex;gap:8px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{font-size:12px;border:1px solid #f5d77a;color:#f5d77a;border-radius:999px;padding:4px 10px}
 .note{color:var(--muted);font-size:13px;margin-top:28px}
 [hidden]{display:none}
 </style>
@@ -55,10 +65,16 @@ button{padding:13px 22px;border:0;border-radius:10px;background:var(--btn);color
 <form id="f">
 <input id="a" placeholder="0x…" autocomplete="off" spellcheck="false" aria-label="Wallet address">
 <button type="submit">Get passport</button>
+<div class="gen">
+<input id="gr" inputmode="numeric" placeholder="Genesis rank (optional)" aria-label="Genesis rank, optional">
+<input id="ga" inputmode="numeric" placeholder="Aura (optional)" aria-label="Aura, optional">
+<input id="gb" inputmode="numeric" placeholder="Badges (optional)" aria-label="Badges, optional">
+</div>
+<details><summary>Holder badges you earned (optional)</summary><div class="hl" id="hl"></div></details>
 </form>
 <p id="msg" role="status"></p>
 <section id="out" hidden></section>
-<p class="note">Reads public data from the Squeekchain API (Sepolia testnet, about 12 blocks behind the chain). Testnet Squeeks and $SQK have no monetary value. Unofficial community tool.</p>
+<p class="note">Reads public data from the Squeekchain API (Sepolia testnet, about 12 blocks behind the chain). Testnet Squeeks and $SQK have no monetary value. Genesis rank, Aura and badges are optional and self-reported, not verified. Unofficial community tool.</p>
 </main>
 <script>
 (function(){
@@ -98,6 +114,12 @@ if(acc.status!=="available"){msg("This wallet’s data is unknown right now ("+(
 render(addr,acc,act.status==="available"?act:null);msg("")
 }catch(e){
 msg(e.message==="invalid_address"?"That address is not valid. Use 0x and 40 hex characters, with a correct checksum if it has mixed case.":"Could not load data ("+e.message+"). Try again.",true)}}
+function gv(id){return ($(id).value||"").replace(/[^0-9]/g,"").slice(0,12)}
+try{["gr","ga","gb"].forEach(function(i){var v=localStorage.getItem("sp_"+i);if(v)$(i).value=v})}catch(e){}
+var HOLD=["Abstract Chickens Holder","1337 Skulls Holder","Argonauts Holder","Bored Ape Holder","Punk Holder","Forever Holder","FWA Staker","IMD Holder","Mutant Ape Holder","Meebits Holder","Milady Holder","Nakamigos Holder","Nezmies Holder","QUOTRONS Holder","Remilio Holder","Schizo Posters Holder","Charter Holder (Standard Reserve)","StonkBrokers Staker","TokenWorks 502 Holder","Yield Fields Deed Holder"];
+function getH(){return Array.prototype.slice.call(document.querySelectorAll("#hl input:checked")).map(function(c){return HOLD[Number(c.value)]})}
+(function(){var saved=[];try{saved=JSON.parse(localStorage.getItem("sp_h")||"[]")}catch(e){}
+$("hl").innerHTML=HOLD.map(function(n,i){return '<label><input type="checkbox" value="'+i+'"'+(saved.indexOf(n)>=0?' checked':'')+'> '+n+'</label>'}).join("")})();
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function render(addr,acc,act){
 var tk=acc.tokens||[],tc=acc.tokenCounts||{};
@@ -113,6 +135,14 @@ var stamps=STAMPS.map(function(s,i){return '<div class="st'+(earned[i]?'':' off'
 var u=addr.slice(2).toUpperCase(),pad=function(s){return (s+"<".repeat(44)).slice(0,44)};
 var l1=pad("P<SQK"+u.slice(0,20)+"<<"),l2=pad(u.slice(20)+"<<"+count+"<"+n);
 var tweet="https://twitter.com/intent/tweet?text="+encodeURIComponent("My Squeek Passport: "+tier+", "+count+" Squeeks, "+n+" stamps on the Squeekchain testnet. Get yours:")+"&url="+encodeURIComponent("https://squeekpassport.xyz");
+var gr=gv("gr"),ga=gv("ga"),gb=gv("gb"),genBlock="";
+function gn(v){return esc(Number(v).toLocaleString("en-US"))}
+if(gr||ga||gb){genBlock='<div class="cap">Genesis profile, self-reported</div><div class="stats">'+
+(gr?'<div><small>Genesis rank</small><strong>#'+gn(gr)+'</strong></div>':'')+
+(ga?'<div><small>Aura</small><strong>'+gn(ga)+'</strong></div>':'')+
+(gb?'<div><small>Badges</small><strong>'+gn(gb)+'</strong></div>':'')+'</div>'}
+var hs=getH();
+if(hs.length){genBlock+=(genBlock?'':'<div class="cap">Genesis profile, self-reported</div>')+'<div class="chips">'+hs.map(function(n){return '<span class="chip">'+esc(n)+'</span>'}).join("")+'</div>'}
 $("out").innerHTML='<article class="pass" aria-label="Squeek Passport">'+
 '<div class="hd"><b>Squeek Passport</b><span>Squeekchain · Sepolia testnet</span></div>'+
 '<div class="id"><div><div class="tier">'+esc(tier)+'</div><div class="addr">'+esc(addr)+'</div></div><img class="photo" src="'+PHOTO+'" alt="Squeek Passport mascot" width="120" height="120"></div>'+
@@ -125,13 +155,15 @@ $("out").innerHTML='<article class="pass" aria-label="Squeek Passport">'+
 '<div><small>Paid out $SQK</small><strong>'+esc(acc.rewards?sqk(acc.rewards.lifetimePaidBaseUnits,2):"—")+'</strong></div>'+
 '<div><small>Earned in 7 days</small><strong>'+esc(wk==null?"—":sqk(wk,2))+'</strong></div>'+
 '<div><small>Actions on chain</small><strong>'+esc(act?num(act.total):"—")+'</strong></div>'+
-'</div><div class="stamps">'+stamps+'</div>'+
+'</div>'+genBlock+'<div class="stamps">'+stamps+'</div>'+
 '<div class="mrz">'+esc(l1)+'<br>'+esc(l2)+'</div></article>'+
 '<div class="row"><a href="'+tweet+'" target="_blank" rel="noopener">Share on X</a></div>';
 $("out").hidden=false}
 $("f").addEventListener("submit",function(e){
 e.preventDefault();var a=$("a").value.trim();
 if(!/^0x[0-9a-fA-F]{40}$/.test(a)){msg("Enter a wallet address: 0x followed by 40 hex characters.",true);return}
+try{["gr","ga","gb"].forEach(function(i){localStorage.setItem("sp_"+i,gv(i))})}catch(e){}
+try{localStorage.setItem("sp_h",JSON.stringify(getH()))}catch(e){}
 load(a)})
 })();
 </script>
