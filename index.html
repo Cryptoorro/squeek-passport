@@ -108,14 +108,14 @@ var rot=[-8,5,-4,9,-6,3];
 var stamps=STAMPS.map(function(s,i){return '<div class="st'+(earned[i]?'':' off')+'" style="--r:'+rot[i]+'deg">'+(earned[i]?s[0]:'Not yet')+'</div>'}).join("");
 var u=addr.slice(2).toUpperCase(),pad=function(s){return (s+"<".repeat(44)).slice(0,44)};
 var l1=pad("P<SQK"+u.slice(0,20)+"<<"),l2=pad(u.slice(20)+"<<"+count+"<"+n);
-var tweet="https://twitter.com/intent/tweet?text="+encodeURIComponent("My Squeek Passport: "+tier+", "+count+" Squeeks, "+n+" stamps on the Squeekchain testnet. Get yours:");
+var tweet="https://twitter.com/intent/tweet?text="+encodeURIComponent("My Squeek Passport: "+tier+", "+count+" Squeeks, "+n+" stamps on the Squeekchain testnet. Get yours:")+"&url="+encodeURIComponent("https://squeekpassport.xyz");
 $("out").innerHTML='<article class="pass" aria-label="Squeek Passport">'+
 '<div class="hd"><b>Squeek Passport</b><span>Squeekchain · Sepolia testnet</span></div>'+
 '<div class="tier">'+esc(tier)+'</div><div class="addr">'+esc(addr)+'</div>'+
 '<div class="stats">'+
 '<div><small>Squeeks</small><strong>'+esc(num(count))+'</strong></div>'+
 '<div><small>Highest level</small><strong>'+(top==null?"—":esc(top))+'</strong></div>'+
-'<div><small>Power</small><strong>'+esc(num(pw))+'</strong></div>'+
+'<div><small>Power</small><strong>'+esc(pw==null?"—":sqk(pw,2))+'</strong></div>'+
 '<div><small>Staked $SQK</small><strong>'+esc(acc.stake?sqk(acc.stake.principalBaseUnits,2):"—")+'</strong></div>'+
 '<div><small>Claimable $SQK</small><strong>'+esc(acc.rewards?sqk(acc.rewards.claimableBaseUnits,4):"—")+'</strong></div>'+
 '<div><small>Paid out $SQK</small><strong>'+esc(acc.rewards?sqk(acc.rewards.lifetimePaidBaseUnits,2):"—")+'</strong></div>'+
