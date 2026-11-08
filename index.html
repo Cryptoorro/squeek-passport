@@ -1,156 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#101b29" />
-<meta name="description" content="Squeek Moonburrow: a free hamster maze game powered by optional real Squeekchain wheel data." />
-<title>Squeek Moonburrow — A hamster-sized adventure</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Squeek Passport</title>
+<meta name="description" content="Look up any wallet and get a shareable Squeekchain passport: Squeeks, power, stakes, rewards and stamps.">
+<meta name="squeekchain-project" content="PASTE-YOUR-PROJECT-UUID-HERE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#101b29;--panel:#1a2c39;--panel2:#203542;--muted:#9eb7b8;--cream:#fff3d8;--gold:#ffd46a;--mint:#75e0bb;--danger:#ff8374;--line:#39505b;--tile:#2d4550;--wall:#576b79}
-*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;color:var(--cream);font-family:ui-rounded,system-ui,-apple-system,'Segoe UI',sans-serif;background:radial-gradient(circle at 14% 8%,#28544e5c,transparent 32%),radial-gradient(circle at 86% 83%,#553b4855,transparent 36%),var(--bg);min-height:100vh}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.45}a{color:var(--mint)}.shell{max-width:1080px;margin:auto;padding:28px 20px 42px}.header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}.logo{display:flex;align-items:center;gap:12px}.logoMark{width:58px;height:58px;background:linear-gradient(145deg,#ffcc83,#fa9e78);display:grid;place-items:center;border-radius:19px;font-size:33px;box-shadow:0 8px 28px #0003;transform:rotate(-5deg)}.eyebrow{font-weight:850;letter-spacing:.16em;color:var(--mint);font-size:11px}.header h1{font-size:clamp(25px,4vw,38px);letter-spacing:-.035em;margin:2px 0 0;line-height:1.1}.chip{font-size:12px;color:#c7d7d8;border:1px solid var(--line);border-radius:99px;padding:9px 12px;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(0,1fr) 284px;gap:18px;align-items:start}.card{background:linear-gradient(165deg,#1d3340,#172833);border:1px solid #42606b88;border-radius:24px;box-shadow:0 24px 45px #06111a40;overflow:hidden}.playhead{padding:16px 18px 14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}.stats{display:flex;gap:9px;flex-wrap:wrap}.stat{padding:9px 12px;border:1px solid #46616a;border-radius:13px;background:#10222c;min-width:83px}.stat small{display:block;font-size:10px;letter-spacing:.075em;text-transform:uppercase;color:#a5b9bf;font-weight:800}.stat strong{display:block;font-size:19px;line-height:1.35;font-variant-numeric:tabular-nums}.levelTag{background:#2e4e4a;color:#d5ffef;border-radius:12px;padding:10px 14px;font-weight:800;font-size:13px}.stage{padding:12px 15px 16px}.board{position:relative;background:#102631;border:1px solid #3a5960;border-radius:18px;padding:10px;box-shadow:inset 0 0 32px #081720;touch-action:manipulation}.grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px;user-select:none}.cell{aspect-ratio:1/1;border-radius:9px;display:grid;place-items:center;position:relative;min-width:0;background:linear-gradient(145deg,#344e57,#263d48);font-size:clamp(16px,2.9vw,30px);box-shadow:inset 0 1px #ffffff12}.cell.wall{background:linear-gradient(135deg,#64777f,#405763);box-shadow:inset 1px 1px #ffffff15,inset -2px -3px #1e303d55}.cell.wall:after{content:"";width:40%;height:30%;border-radius:50%;background:#ffffff07;transform:rotate(-28deg)}.cell.nest{background:#376c61}.cell.nest:before{content:"";position:absolute;inset:6px;border:2px dashed #c5f4c07f;border-radius:8px}.cell.seed{background:linear-gradient(140deg,#7a6240,#554a3a);animation:shine 1.8s ease-in-out infinite alternate}.cell.gate{background:#654d58}.cell.gate.open{background:#2f6b62}.cell.portal{background:#544b84}.cell.cat-cell{background:#4c3b4c}.cell.hamster-cell{background:linear-gradient(135deg,#5e7061,#355e55)}.cell .sprite{z-index:2;line-height:1;filter:drop-shadow(0 3px 1px #0a182344)}.cell.hamster-cell .sprite{animation:bob .22s ease-in-out alternate infinite}.cell .tiny{position:absolute;right:3px;bottom:2px;font-size:9px;color:#9fddc5;z-index:3}.cell .eyes{font-size:clamp(16px,2.7vw,28px)}@keyframes shine{to{filter:brightness(1.21)}}@keyframes bob{to{transform:translateY(-3px)}}.cell.hidden .sprite{opacity:.5}.board.is-paused .grid{filter:grayscale(.45) blur(1px)}.overlay{position:absolute;inset:8px;display:grid;place-items:center;z-index:10;background:#091923d9;border-radius:14px;padding:18px;text-align:center;backdrop-filter:blur(5px)}.overlay[hidden]{display:none}.dialog{max-width:380px}.dialog .art{font-size:63px;line-height:1.1}.dialog h2{font-size:clamp(23px,4vw,34px);letter-spacing:-.03em;margin:10px 0 9px}.dialog p{font-size:14px;line-height:1.6;color:#c6d8d8;margin:0 0 18px}.dialog .dialogActions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.button{background:var(--gold);border:0;border-radius:13px;color:#1b2931;padding:12px 16px;font-weight:850;box-shadow:0 4px 0 #d1a34d;transition:transform .1s,box-shadow .1s}.button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #d1a34d}.button.alt{background:#294553;border:1px solid #52717b;color:#e7f5ec;box-shadow:none}.button.green{background:var(--mint);box-shadow:0 4px 0 #3aaf8a}.hintbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#bdd0d1;font-size:12px;line-height:1.5;padding:13px 4px 0}.hintbar b{color:var(--gold)}.controlRow{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}.dpad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,49px);gap:6px;align-items:center}.dpad button{border:1px solid #54717b;background:#294552;border-radius:12px;color:#fff7df;font-size:24px;font-weight:900;touch-action:manipulation;min-width:44px;min-height:44px}.dpad button:active{background:#428376}.dpad .up{grid-column:2;grid-row:1}.dpad .left{grid-column:1;grid-row:2}.dpad .down{grid-column:2;grid-row:2}.dpad .right{grid-column:3;grid-row:2}.special{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.special .button{min-width:98px}.side{display:grid;gap:15px}.sideBox{padding:19px}.sideBox h3{font-size:16px;letter-spacing:-.02em;margin:0 0 12px}.sideBox p{color:#b9cbce;font-size:13px;line-height:1.6;margin:0 0 10px}.sideBox p:last-child{margin-bottom:0}.signal{display:flex;align-items:center;gap:9px;color:#dbeccf;font-size:13px;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#f2be77;box-shadow:0 0 0 4px #f2be7724}.dot.live{background:var(--mint);box-shadow:0 0 0 4px #75e0bb21}.dot.off{background:#f18d89;box-shadow:0 0 0 4px #f18d8920}.metric{font-size:23px;font-weight:900;margin:12px 0 5px;font-variant-numeric:tabular-nums}.muted{font-size:12px;color:var(--muted)}.modebuttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.modebuttons .button{font-size:12px;padding:10px 12px}.note{background:#233c45;border:1px solid #43616a;border-radius:13px;padding:12px;color:#bbd4ce;font-size:12px;line-height:1.55}.rules{margin:0;padding-left:18px;color:#cbdbdb;font-size:13px;line-height:1.85}.footer{font-size:11px;color:#8eaaaf;line-height:1.6;margin-top:17px;text-align:center}.footer a{color:#b8e2cf}.footer .disclaimer{display:block;color:#78979b;margin-top:5px}@media(max-width:840px){.layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.sideBox:last-child{grid-column:1/-1}}@media(max-width:510px){.shell{padding:14px 9px 28px}.header{padding:0 4px;margin-bottom:12px}.logo{gap:9px}.logoMark{width:46px;height:46px;font-size:25px;border-radius:14px}.header h1{font-size:24px}.eyebrow{font-size:9px}.chip{display:none}.card{border-radius:17px}.playhead{padding:12px;gap:7px}.stats{gap:6px}.stat{min-width:66px;padding:7px 9px}.stat strong{font-size:17px}.levelTag{font-size:12px;padding:8px}.stage{padding:5px 5px 12px}.board{padding:5px;border-radius:12px}.grid{gap:2px}.cell{border-radius:5px;font-size:clamp(16px,5vw,27px)}.cell.nest:before{inset:2px;border-width:1px}.cell .tiny{display:none}.side{grid-template-columns:1fr}.sideBox:last-child{grid-column:auto}.controlRow{padding:0 10px}.dpad{grid-template-columns:repeat(3,51px);grid-template-rows:repeat(2,48px);gap:5px}.special{gap:8px}.special .button{min-width:88px}.hintbar{padding:10px 10px 0}.footer{padding:0 4px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001s!important;transition:none!important}}
+:root{--bg:#e8ebf1;--fg:#16161d;--muted:#5b6070;--line:#c3c8d4;--field:#fff;--btn:#16161d;--btnfg:#f5d77a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121218;--fg:#ecebe4;--muted:#9a9eae;--line:#2c2d38;--field:#1c1c25;--btn:#f5d77a;--btnfg:#16161d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121218;--fg:#ecebe4;--muted:#9a9eae;--line:#2c2d38;--field:#1c1c25;--btn:#f5d77a;--btnfg:#16161d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 20px 64px}
+h1{font-size:clamp(34px,7vw,52px);line-height:1.05;margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);margin:0 0 28px;max-width:46ch}
+form{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+input{flex:1 1 280px;min-width:0;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--field);color:var(--fg);font:500 14px "IBM Plex Mono",ui-monospace,monospace}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #e0a82e;outline-offset:2px}
+button{padding:13px 22px;border:0;border-radius:10px;background:var(--btn);color:var(--btnfg);font:600 15px "Bricolage Grotesque",system-ui,sans-serif;cursor:pointer}
+#msg{min-height:24px;color:var(--muted);font-size:14px;margin:0 0 18px}
+#msg.err{color:#d2483c}
+.pass{background:#1a1a20;color:#efe9d6;border-radius:18px;padding:26px 24px 20px;border:1px solid #3a3a46;box-shadow:0 0 0 6px rgba(245,215,122,.08);background-image:radial-gradient(rgba(245,215,122,.13) 1px,transparent 1.3px);background-size:14px 14px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid #3a3a46;padding-bottom:12px}
+.hd b{font-weight:800;font-size:20px;color:#f5d77a;letter-spacing:.01em}
+.hd span{font:400 12px "IBM Plex Mono",monospace;color:#9a9ab0}
+.tier{font-size:clamp(30px,7vw,44px);font-weight:800;line-height:1.1;margin:22px 0 4px}
+.addr{font:500 13px "IBM Plex Mono",monospace;color:#b9b6a4;word-break:break-all}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px 14px;margin:24px 0}
+.stats div{border-left:2px solid #f5d77a;padding-left:10px}
+.stats small{display:block;color:#9a9ab0;font-size:13px}
+.stats strong{font-size:22px;font-weight:600;overflow-wrap:anywhere}
+.stamps{display:flex;flex-wrap:wrap;gap:12px;margin:6px 0 20px}
+.st{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:800;font-size:13px;line-height:1.15;padding:8px;border:3px double #f5d77a;color:#f5d77a;transform:rotate(var(--r))}
+.st.off{border-color:#3a3a46;color:#55556a;border-style:dashed;font-weight:400}
+.mrz{font:400 clamp(9px,2.6vw,13px)/1.5 "IBM Plex Mono",monospace;color:#8c8a7c;letter-spacing:.04em;overflow:hidden;white-space:nowrap;border-top:1px solid #3a3a46;padding-top:12px}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.row a{color:var(--fg);font-weight:600}
+.note{color:var(--muted);font-size:13px;margin-top:28px}
+[hidden]{display:none}
 </style>
 </head>
 <body>
-<main class="shell">
-<header class="header"><div class="logo"><div class="logoMark" aria-hidden="true">🐹</div><div><div class="eyebrow">SQUEEKCHAIN COMMUNITY GAME</div><h1>Squeek Moonburrow</h1></div></div><span class="chip">FREE TO PLAY · NO WALLET</span></header>
-<section class="layout" aria-label="Hamster game">
-  <article class="card"><div class="playhead"><div class="stats"><div class="stat"><small>Level</small><strong id="level">1 / 5</strong></div><div class="stat"><small>Seeds</small><strong id="seeds">0 / 0</strong></div><div class="stat"><small>Hearts</small><strong id="hearts">❤️❤️❤️</strong></div><div class="stat"><small>Score</small><strong id="score">0</strong></div></div><div class="levelTag" id="modeTag">🌿 PRACTICE</div></div>
-  <div class="stage"><div class="board" id="board"><div id="grid" class="grid" role="grid" aria-label="Maze, move with arrow keys or buttons"></div><div class="overlay" id="overlay"><div class="dialog"><div class="art" id="dialogArt">🐹🌙</div><h2 id="dialogTitle">Find your way home!</h2><p id="dialogText">Collect all sunflower seeds, dodge the cats, and return to the glowing burrow. There are five bite-size mazes to beat.</p><div class="dialogActions"><button class="button green" id="dialogStart">Start playing →</button></div></div></div></div><div class="hintbar"><span>🌻 Collect every seed → 🏠 reach the burrow</span><span id="message"><b>Tip:</b> hide with Space!</span></div><div class="controlRow"><div class="dpad" aria-label="Direction controls"><button class="up" data-dir="up" aria-label="Up">↑</button><button class="left" data-dir="left" aria-label="Left">←</button><button class="down" data-dir="down" aria-label="Down">↓</button><button class="right" data-dir="right" aria-label="Right">→</button></div><div class="special"><button class="button alt" id="hideBtn" aria-label="Hide from the cat for one turn">🫥 Hide <span id="hideCount">×2</span></button><button class="button alt" id="resetBtn">↻ Restart</button></div></div></div></article>
-  <aside class="side">
-    <section class="card sideBox"><div class="eyebrow">WHEEL SIGNAL</div><h3 style="margin-top:7px">Powered by Squeektoshi</h3><div class="signal"><span class="dot off" id="signalDot"></span><span id="signalStatus">Checking public API…</span></div><div class="metric" id="rpm">— RPM</div><div class="muted" id="blockHeight">Live block: unavailable</div><div class="muted" id="signalTime" style="margin-top:6px">No data received yet</div><div class="modebuttons"><button class="button alt" id="practiceBtn">🌿 Practice</button><button class="button green" id="liveBtn" disabled>⚡ Use live wheel</button></div><p style="margin-top:12px">When the real wheel is <b>active</b>, cats patrol faster. During <b>idle</b>, they patrol slowly. A fresh reading is locked in when you start a live run.</p></section>
-    <section class="card sideBox"><h3>🎮 How to play</h3><ol class="rules"><li>Move with <b>arrow keys / WASD</b> or the touch arrows.</li><li>Collect all 🌻 seeds to unlock the 🚪 gate.</li><li>Reach your 🏠 burrow to finish each level.</li><li>Avoid 🐈 cats. Press <b>Space / Hide</b> to become invisible for one turn.</li><li>Use paired 🌀 tunnels to teleport!</li></ol></section>
-    <section class="card sideBox"><h3>🏆 Burrow records</h3><p id="best">Best run: none yet</p><div class="note">Single-player browser game. Scores are saved only on your device, not on-chain. Practice works offline; live mode needs the public API. No tokens, fees, wallet or prizes.</div><div style="display:flex;gap:8px;margin-top:12px"><button class="button alt" id="soundBtn" style="flex:1">🔊 Sound on</button><button class="button alt" id="checkBtn" style="flex:1">↻ Refresh signal</button></div></section>
-  </aside>
-</section>
-<div class="footer">Independent community fan game · <a href="https://squeekchain.com/genesis/code" target="_blank" rel="noopener noreferrer">Genesis Code</a> · <a href="https://docs.squeekchain.com/developers/api/" target="_blank" rel="noopener noreferrer">Official public API documentation</a><span class="disclaimer">Not affiliated with Squeekchain. Genesis verification is a separate process; playing or publishing this game does not grant a badge.</span></div>
+<main>
+<h1>Squeek Passport</h1>
+<p class="lead">Paste a wallet address and get its Squeekchain passport: Squeeks, power, stakes, rewards and the stamps it has earned.</p>
+<form id="f">
+<input id="a" placeholder="0x…" autocomplete="off" spellcheck="false" aria-label="Wallet address">
+<button type="submit">Get passport</button>
+</form>
+<p id="msg" role="status"></p>
+<section id="out" hidden></section>
+<p class="note">Reads public data from the Squeekchain API (Sepolia testnet, about 12 blocks behind the chain). Testnet Squeeks and $SQK have no monetary value. Unofficial community tool.</p>
 </main>
 <script>
-'use strict';
-// Squeek Moonburrow. Dependency-free HTML game; no signing or credentials.
-const $=s=>document.querySelector(s);
-const GRID_W=11, GRID_H=9;
-// # wall, H hamster, N nest, S seed, C cat, G gate, T paired tunnel.
-const levels=[
- [
- '###########',
- '#H...S....#',
- '#.###.###.#',
- '#...#.....#',
- '#.S...#S..#',
- '#...#.....#',
- '#.###.###.#',
- '#...S.G.N.#',
- '###########'
- ],
- [
- '###########',
- '#H..#...S.#',
- '#.#.#.#.#.#',
- '#S#...#...#',
- '#...#...#.#',
- '#.#...#S#.#',
- '#...#...#.#',
- '#..C..G.N.#',
- '###########'
- ],
- [
- '###########',
- '#H..T#...S#',
- '#.##.#.##.#',
- '#..S...#..#',
- '#.##.#....#',
- '#....#.##.#',
- '#..C.#T.S.#',
- '#...S.G.N.#',
- '###########'
- ],
- [
- '###########',
- '#H.S..#...#',
- '#.###.#.S.#',
- '#.....#...#',
- '#.##.#.##.#',
- '#..C...S..#',
- '#.##.###..#',
- '#S.....G.N#',
- '###########'
- ],
- [
- '###########',
- '#H...S#...#',
- '#.##..#.S.#',
- '#...#...#.#',
- '#.S.#.#...#',
- '#...#...S.#',
- '#.##...#..#',
- '#...C..G.N#',
- '###########'
- ]
-];
-const DIRS={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
-const ui={grid:$('#grid'),overlay:$('#overlay'),art:$('#dialogArt'),title:$('#dialogTitle'),txt:$('#dialogText'),start:$('#dialogStart'),msg:$('#message')};
-let level=0, score=0, hearts=3, shield=2, turns=0, collected=0, totalSeeds=0, map=[], player={x:1,y:1},spawn={x:1,y:1},cats=[],portals=[],gameState='intro', invulnerable=false, mode='practice', runWheel='PRACTICE', live=null, liveChecked=0, soundEnabled=true, audioCtx=null;
-let best=0;try{best=Number(localStorage.getItem('squeekmoonburrow-best')||0)||0}catch{}
-function setMessage(t){ui.msg.innerHTML=t}
-function posEq(a,b){return a.x===b.x&&a.y===b.y}
-function neighbours(p){return Object.values(DIRS).map(([dx,dy])=>({x:p.x+dx,y:p.y+dy}))}
-function inside(p){return p.x>=0&&p.x<GRID_W&&p.y>=0&&p.y<GRID_H}
-function tile(p){return inside(p)?map[p.y][p.x]:'#'}
-function openTile(p,gateOpen=collected===totalSeeds){let t=tile(p);return t!=='#'&&(t!=='G'||gateOpen)}
-function initialiseLevel(){map=levels[level].map(s=>s.split(''));cats=[];portals=[];totalSeeds=0;collected=0;turns=0;shield=2;invulnerable=false;
- for(let y=0;y<GRID_H;y++)for(let x=0;x<GRID_W;x++){const t=map[y][x];if(t==='H'){player={x,y};spawn={x,y};map[y][x]='.'}if(t==='C'){cats.push({x,y});map[y][x]='.'}if(t==='T')portals.push({x,y});if(t==='S')totalSeeds++}
- $('#level').textContent=`${level+1} / ${levels.length}`;updateHUD();render()}
-function updateHUD(){ $('#seeds').textContent=`${collected} / ${totalSeeds}`;$('#hearts').textContent='❤️'.repeat(Math.max(0,hearts));$('#score').textContent=score;$('#hideCount').textContent=`×${shield}`;$('#hideBtn').disabled=gameState!=='playing'||shield<=0;$('#modeTag').textContent=mode==='live'?(runWheel==='ACTIVE'?'⚡ LIVE · ACTIVE':'🌙 LIVE · IDLE'):'🌿 PRACTICE';$('#best').textContent=best?`Best run: ${best} points (this device)`:'Best run: none yet'}
-function render(){ const frag=document.createDocumentFragment();for(let y=0;y<GRID_H;y++)for(let x=0;x<GRID_W;x++){
- const t=map[y][x],p={x,y},el=document.createElement('div');el.className='cell';el.setAttribute('role','gridcell');let icon='',lab='floor';
- if(t==='#'){el.classList.add('wall');lab='wall'}else if(t==='S'){el.classList.add('seed');icon='🌻';lab='seed'}else if(t==='N'){el.classList.add('nest');icon='🏠';lab='home'}else if(t==='G'){el.classList.add('gate');if(collected===totalSeeds){el.classList.add('open');icon='✨'}else icon='🚪';lab='gate'}else if(t==='T'){el.classList.add('portal');icon='🌀';lab='tunnel'}
- if(cats.some(c=>posEq(c,p))){el.classList.add('cat-cell');icon='🐈';lab='cat'}
- if(posEq(player,p)){el.classList.add('hamster-cell');if(invulnerable)el.classList.add('hidden');icon='🐹';lab='hamster'}
- if(icon){const span=document.createElement('span');span.className='sprite';span.textContent=icon;el.appendChild(span)}el.setAttribute('aria-label',`${lab} at ${x+1},${y+1}`);frag.appendChild(el)}ui.grid.replaceChildren(frag)}
-function beep(freq=440,duration=.07,type='sine'){if(!soundEnabled)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime);g.gain.setValueAtTime(.045,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration)}catch{}}
-function showDialog(art,title,text,button,callback){gameState='dialog';ui.art.textContent=art;ui.title.textContent=title;ui.txt.textContent=text;ui.start.textContent=button;ui.start.onclick=callback;ui.overlay.hidden=false;$('#board').classList.add('is-paused');updateHUD()}
-function closeDialog(){gameState='playing';ui.overlay.hidden=true;$('#board').classList.remove('is-paused');updateHUD()}
-function startGame(useLive=false){if(useLive&&!isLiveAvailable())return;mode=useLive?'live':'practice';runWheel=mode==='live'?live.wheel:'PRACTICE';level=0;score=0;hearts=3;initialiseLevel();closeDialog();setMessage(useLive?`<b>Live snapshot:</b> ${runWheel==='ACTIVE'?'wheel active':'wheel idle'} at start`:'<b>Practice:</b> no live data required')}
-function nextLevel(){level++;if(level>=levels.length){if(score>best){best=score;try{localStorage.setItem('squeekmoonburrow-best',String(best))}catch{}}updateHUD();showDialog('🏆🐹','Garden legend!',`All five burrows saved. Your final score is ${score}. No wallet needed, just hamster skills.`, 'Play again',()=>startGame(mode==='live'&&isLiveAvailable()));beep(880,.17);return}initialiseLevel();closeDialog();setMessage('<b>New maze!</b> Find every sunflower seed 🌻')}
-function gameOver(){if(score>best){best=score;try{localStorage.setItem('squeekmoonburrow-best',String(best))}catch{}}updateHUD();showDialog('🐹💤','Time for a nap',`The cats caught you! Your score: ${score}. Give it another try.`, 'Try again',()=>startGame(mode==='live'&&isLiveAvailable()));beep(190,.3,'triangle')}
-function success(){score+=50+hearts*10;beep(720,.12);setTimeout(()=>beep(950,.18),120);showDialog('🌻🎉',`Burrow ${level+1} complete!`,`You gathered every seed and made it home. Level bonus +${50+hearts*10} points.`,level===levels.length-1?'See your final score':'Next burrow →',nextLevel)}
-function catCadence(){return mode==='live'?(runWheel==='ACTIVE'?2:4):3}
-function nearestStep(from,to){const q=[from],seen=new Set([`${from.x},${from.y}`]),parent=new Map();let target=null;
- while(q.length){const p=q.shift();if(posEq(p,to)){target=p;break}for(const nxt of neighbours(p)){const k=`${nxt.x},${nxt.y}`;if(!seen.has(k)&&openTile(nxt)){seen.add(k);parent.set(k,p);q.push(nxt)}}}if(!target)return from;let cur=target;while(true){const pr=parent.get(`${cur.x},${cur.y}`);if(!pr)return from;if(posEq(pr,from))return cur;cur=pr}}
-function patrolCats(hiddenNow){if(turns%catCadence()!==0)return;cats=cats.map((cat,i)=>{
- let next=cat;if(hiddenNow){let choices=neighbours(cat).filter(p=>openTile(p)&&!cats.some((c,j)=>j!==i&&posEq(c,p)));if(choices.length)next=choices[(turns+i)%choices.length]}else{const step=nearestStep(cat,player);if(!cats.some((c,j)=>j!==i&&posEq(c,step)))next=step}
- return next})}
-function handleHit(hiddenNow){if(hiddenNow||!cats.some(c=>posEq(c,player)))return false;hearts--;beep(220,.16,'sawtooth');if(hearts<=0){render();gameOver();return true}player={...spawn};setMessage(`<b>Ouch!</b> A cat caught you. ${hearts} hearts left.`);return false}
-function move(dir){if(gameState!=='playing')return;const [dx,dy]=DIRS[dir]||[];if(dx===undefined)return;const candidate={x:player.x+dx,y:player.y+dy};if(!openTile(candidate)){beep(195,.035);setMessage(collected<totalSeeds&&tile(candidate)==='G'?'<b>Locked!</b> Collect all 🌻 seeds first.':'<b>Rock wall!</b> Try another route.');return}
- player=candidate;turns++;let t=tile(player);if(t==='S'){map[player.y][player.x]='.';collected++;score+=10;shield=Math.min(3,shield+1);beep(630,.07);setMessage(collected===totalSeeds?'<b>Gate unlocked!</b> Return to 🏠':'<b>Nice!</b> Seed collected. +10 points 🌻')}
- if(t==='T'&&portals.length===2){const exit=portals.find(p=>!posEq(player,p));if(exit){player={...exit};beep(590,.13);setMessage('<b>Whee!</b> You crossed a wormhole 🌀')}}
- if(t==='N'&&collected===totalSeeds){render();success();return}
- const hiddenNow=invulnerable;invulnerable=false;
- if(handleHit(hiddenNow))return;patrolCats(hiddenNow);if(handleHit(hiddenNow))return;render();updateHUD()}
-function hide(){if(gameState!=='playing'||shield<=0)return;shield--;turns++;invulnerable=true;patrolCats(true);render();updateHUD();beep(340,.12);setMessage('<b>Camouflage!</b> Cats cannot catch you this turn. Now move!')}
-function restartLevel(){if(gameState==='intro')return;score=Math.max(0,score-20);initialiseLevel();closeDialog();setMessage('<b>Restarted.</b> -20 points; hearts remain.')}
-function isLiveAvailable(){return live&&Date.now()-liveChecked<90000&&live.wheel&&live.fresh===true&&live.hardware===true}
-function setSignal(label,kind,extra){$('#signalStatus').textContent=label;$('#signalDot').className=`dot ${kind}`;$('#signalTime').textContent=extra;$('#liveBtn').disabled=!isLiveAvailable()}
-async function fetchSignal(){const ctl=new AbortController();const timeout=setTimeout(()=>ctl.abort(),5000);$('#checkBtn').disabled=true;
- try{const resp=await fetch('https://api.squeekchain.com/v1/status',{signal:ctl.signal,cache:'no-store'});if(!resp.ok)throw Error(`HTTP ${resp.status}`);const json=await resp.json();if(json.schemaVersion!==1)throw Error('Unsupported schema');const m=json.measurement;
- if(!m||typeof m!=='object')throw Error('No wheel measurement');const wheel= m.coreStatus==='ACTIVE'||m.coreStatus==='SPINNING'?'ACTIVE':m.coreStatus==='IDLE'?'IDLE':null;
- const age=Date.now()-Date.parse(m.receivedAt||'');const fresh=m.freshness==='online'&&Number.isFinite(age)&&age>=-30000&&age<=Math.min(Number(m.staleAfterSeconds||120)*1000,120000);
- const hardware=m.provenance==='hardware';live={wheel,hardware,fresh, rpm:typeof m.rpmMilli==='number'?m.rpmMilli/1000:null,block:json.builder&&json.builder.anchor?json.builder.anchor.blockHeight:null};liveChecked=Date.now();$('#rpm').textContent=live.rpm===null?'— RPM':`${live.rpm.toFixed(1)} RPM`;$('#blockHeight').textContent=live.block?`Squeek block: #${live.block}`:'Squeek block: unavailable';
- const time=new Date(m.receivedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
- if(isLiveAvailable())setSignal(wheel==='ACTIVE'?'Wheel active':'Hamster resting','live',`Hardware measurement · ${time} · Live mode available`);
- else setSignal('Live not available','off',`${!hardware?'Source is not live hardware':!fresh?'Measurement is stale':'Unknown device state'} · Practice still works`)
- }catch(err){live=null;liveChecked=0;$('#rpm').textContent='— RPM';$('#blockHeight').textContent='Squeek block: unavailable';setSignal('Signal unavailable','off',`Cannot fetch live data (${err.name==='AbortError'?'timeout':'network / server'}). Practice still works.`)}finally{clearTimeout(timeout);$('#checkBtn').disabled=false}}
-for(const el of document.querySelectorAll('[data-dir]'))el.addEventListener('click',()=>move(el.dataset.dir));
-document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();const dir={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'}[k];if(dir){e.preventDefault();move(dir)}else if(e.code==='Space'&&gameState==='playing'){e.preventDefault();hide()}else if(e.key==='Enter'&&!ui.overlay.hidden){e.preventDefault();ui.start.click()}});
-$('#hideBtn').addEventListener('click',hide);$('#resetBtn').addEventListener('click',restartLevel);
-$('#practiceBtn').addEventListener('click',()=>{if(gameState==='playing')showDialog('🌿🐹','Restart in practice?', 'Practice uses a fixed cat patrol speed and always works without the internet.', 'Start practice',()=>startGame(false));else startGame(false)});
-$('#liveBtn').addEventListener('click',()=>{if(!isLiveAvailable())return;showDialog('⚡🐹','Live wheel challenge',`This run will use Squeektoshi's ${live.wheel==='ACTIVE'?'active':'idle'} state at the moment it starts. Cats patrol at the matching speed.`, 'Start live game',()=>startGame(true))});
-$('#soundBtn').addEventListener('click',()=>{soundEnabled=!soundEnabled;$('#soundBtn').textContent=soundEnabled?'🔊 Sound on':'🔇 Sound off';if(soundEnabled)beep(460,.06)});
-$('#checkBtn').addEventListener('click',fetchSignal);
-ui.start.onclick=()=>startGame(false);initialiseLevel();ui.overlay.hidden=false;$('#board').classList.add('is-paused');gameState='intro';updateHUD();
-fetchSignal();setInterval(fetchSignal,30000);
+(function(){
+var API="https://api.squeekchain.com/v1",B=BigInt;
+var $=function(i){return document.getElementById(i)};
+var STAMPS=[
+["Minter","nft_claimed"],["Depositor","nft_deposited"],["Staker","sqk_staked","rewards_staked"],
+["Claimer","rewards_claimed"],["Merger","nft_merged"],["Trader","nft_transferred"]];
+var TIERS=["Tourist","Resident","Resident","Veteran","Veteran","Hamster Lord","Hamster Lord"];
+function sqk(v,d){if(v==null)return "—";var b=B(v),u=B("1000000000000000000"),f=(b%u).toString().padStart(18,"0").slice(0,d);return (b/u).toLocaleString("en-US")+"."+f}
+function num(v){return v==null?"—":B(v).toLocaleString("en-US")}
+function msg(t,e){var m=$("msg");m.textContent=t;m.className=e?"err":""}
+function sleep(s){return new Promise(function(r){setTimeout(r,s*1000)})}
+async function get(p){
+for(var i=0;i<3;i++){
+var r=await fetch(API+p,{headers:{accept:"application/json"}});
+if((r.status===429||r.status===503)&&i<2){await sleep(Number(r.headers.get("retry-after"))||2);continue}
+var j=null;try{j=await r.json()}catch(e){}
+if(!r.ok&&r.status!==503)throw new Error(j&&j.error?j.error:"HTTP "+r.status);
+return j}}
+async function pages(path,key,max){
+var all=[],cur=null,first=null;
+for(var i=0;i<max;i++){
+var j=await get(path+(path.indexOf("?")<0?"?":"&")+"limit=100"+(cur?"&cursor="+encodeURIComponent(cur):""));
+if(!first)first=j;
+if(j.status!=="available")return j;
+all=all.concat(j[key]||[]);
+cur=j.nextCursor;if(!cur)break}
+first[key]=all;return first}
+async function load(addr){
+msg("Reading the chain…");$("out").hidden=true;
+try{
+var res=await Promise.all([pages("/accounts/"+addr,"tokens",5),pages("/accounts/"+addr+"/activity","activity",5)]);
+var acc=res[0],act=res[1];
+if(acc.status!=="available"){msg("This wallet’s data is unknown right now ("+(acc.reason||"unavailable")+"). Try again in a minute.",true);return}
+render(addr,acc,act.status==="available"?act:null);msg("")
+}catch(e){
+msg(e.message==="invalid_address"?"That address is not valid. Use 0x and 40 hex characters, with a correct checksum if it has mixed case.":"Could not load data ("+e.message+"). Try again.",true)}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(addr,acc,act){
+var tk=acc.tokens||[],tc=acc.tokenCounts||{};
+var count=(tc.wallet!=null||tc.staking!=null)?(B(tc.wallet||0)+B(tc.staking||0)).toString():String(tk.length);
+var top=tk.length?Math.max.apply(null,tk.map(function(t){return t.level})):null;
+var pw=acc.power&&acc.power.nftPower!=null?(B(acc.power.nftPower)+B(acc.power.sqkPower)).toString():null;
+var wk=acc.earnings?acc.earnings.reduce(function(s,e){return s+B(e.earnedBaseUnits)},B(0)).toString():null;
+var kinds={};if(act)act.activity.forEach(function(x){kinds[x.kind]=1});
+var earned=STAMPS.map(function(s){return s.slice(1).some(function(k){return kinds[k]})});
+var n=earned.filter(Boolean).length,tier=act?TIERS[n]:(Number(count)>0?"Resident":"Tourist");
+var rot=[-8,5,-4,9,-6,3];
+var stamps=STAMPS.map(function(s,i){return '<div class="st'+(earned[i]?'':' off')+'" style="--r:'+rot[i]+'deg">'+(earned[i]?s[0]:'Not yet')+'</div>'}).join("");
+var u=addr.slice(2).toUpperCase(),pad=function(s){return (s+"<".repeat(44)).slice(0,44)};
+var l1=pad("P<SQK"+u.slice(0,20)+"<<"),l2=pad(u.slice(20)+"<<"+count+"<"+n);
+var tweet="https://twitter.com/intent/tweet?text="+encodeURIComponent("My Squeek Passport: "+tier+", "+count+" Squeeks, "+n+" stamps on the Squeekchain testnet. Get yours:");
+$("out").innerHTML='<article class="pass" aria-label="Squeek Passport">'+
+'<div class="hd"><b>Squeek Passport</b><span>Squeekchain · Sepolia testnet</span></div>'+
+'<div class="tier">'+esc(tier)+'</div><div class="addr">'+esc(addr)+'</div>'+
+'<div class="stats">'+
+'<div><small>Squeeks</small><strong>'+esc(num(count))+'</strong></div>'+
+'<div><small>Highest level</small><strong>'+(top==null?"—":esc(top))+'</strong></div>'+
+'<div><small>Power</small><strong>'+esc(num(pw))+'</strong></div>'+
+'<div><small>Staked $SQK</small><strong>'+esc(acc.stake?sqk(acc.stake.principalBaseUnits,2):"—")+'</strong></div>'+
+'<div><small>Claimable $SQK</small><strong>'+esc(acc.rewards?sqk(acc.rewards.claimableBaseUnits,4):"—")+'</strong></div>'+
+'<div><small>Paid out $SQK</small><strong>'+esc(acc.rewards?sqk(acc.rewards.lifetimePaidBaseUnits,2):"—")+'</strong></div>'+
+'<div><small>Earned in 7 days</small><strong>'+esc(wk==null?"—":sqk(wk,2))+'</strong></div>'+
+'<div><small>Actions on chain</small><strong>'+esc(act?num(act.total):"—")+'</strong></div>'+
+'</div><div class="stamps">'+stamps+'</div>'+
+'<div class="mrz">'+esc(l1)+'<br>'+esc(l2)+'</div></article>'+
+'<div class="row"><a href="'+tweet+'" target="_blank" rel="noopener">Share on X</a></div>';
+$("out").hidden=false}
+$("f").addEventListener("submit",function(e){
+e.preventDefault();var a=$("a").value.trim();
+if(!/^0x[0-9a-fA-F]{40}$/.test(a)){msg("Enter a wallet address: 0x followed by 40 hex characters.",true);return}
+load(a)})
+})();
 </script>
 </body>
 </html>
